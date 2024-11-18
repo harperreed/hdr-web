@@ -1,0 +1,44 @@
+body {
+    font-family: system-ui, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.dropzone {
+    border: 2px dashed #ccc;
+    border-radius: 4px;
+    padding: 20px;
+    text-align: center;
+    margin: 20px 0;
+    cursor: pointer;
+}
+.dropzone.dragover {
+    background: #f0f0f0;
+    border-color: #666;
+}
+.preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 0;
+}
+.preview img {
+    max-width: 200px;
+    height: auto;
+}
+#result {
+    max-width: 100%;
+    height: auto;
+}
+.button {
+    background: #0066cc;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
