@@ -4,12 +4,12 @@ on:
     push:
         branches: [main]
         paths:
-            - "rust-zipper/**"
+            - "rust-hdr/**"
             - ".github/workflows/rust-test.yml"
     pull_request:
         branches: [main]
         paths:
-            - "rust-zipper/**"
+            - "rust-hdr/**"
             - ".github/workflows/rust-test.yml"
 
 jobs:
@@ -18,7 +18,7 @@ jobs:
         runs-on: ubuntu-latest
         defaults:
             run:
-                working-directory: ./rust-zipper
+                working-directory: ./rust-hdr
 
         steps:
             - uses: actions/checkout@v4
@@ -29,8 +29,8 @@ jobs:
             - name: Rust Cache
               uses: Swatinem/rust-cache@v2
               with:
-                  prefix-key: "rust-zipper-test"
-                  working-directory: ./rust-zipper
+                  prefix-key: "rust-hdr-test"
+                  working-directory: ./rust-hdr
 
             - name: Run tests
               run: cargo test
@@ -40,7 +40,7 @@ jobs:
         runs-on: ubuntu-latest
         defaults:
             run:
-                working-directory: ./rust-zipper
+                working-directory: ./rust-hdr
 
         steps:
             - uses: actions/checkout@v4
@@ -53,8 +53,8 @@ jobs:
             - name: Rust Cache
               uses: Swatinem/rust-cache@v2
               with:
-                  prefix-key: "rust-zipper-wasm"
-                  working-directory: ./rust-zipper
+                  prefix-key: "rust-hdr-test"
+                  working-directory: ./rust-hdr
 
             - name: Install wasm-pack
               run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
