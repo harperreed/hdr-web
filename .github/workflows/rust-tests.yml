@@ -1,0 +1,69 @@
+name: Rust Test
+
+on:
+    push:
+        branches: [main]
+        paths:
+            - "rust-zipper/**"
+            - ".github/workflows/rust-test.yml"
+    pull_request:
+        branches: [main]
+        paths:
+            - "rust-zipper/**"
+            - ".github/workflows/rust-test.yml"
+
+jobs:
+    native-tests:
+        name: Native Tests
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: ./rust-zipper
+
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Install Rust
+              uses: dtolnay/rust-toolchain@stable
+
+            - name: Rust Cache
+              uses: Swatinem/rust-cache@v2
+              with:
+                  prefix-key: "rust-zipper-test"
+                  working-directory: ./rust-zipper
+
+            - name: Run tests
+              run: cargo test
+
+    wasm-tests:
+        name: WASM Tests
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: ./rust-zipper
+
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Install Rust
+              uses: dtolnay/rust-toolchain@stable
+              with:
+                  targets: wasm32-unknown-unknown
+
+            - name: Rust Cache
+              uses: Swatinem/rust-cache@v2
+              with:
+                  prefix-key: "rust-zipper-wasm"
+                  working-directory: ./rust-zipper
+
+            - name: Install wasm-pack
+              run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+
+            - name: Install Chrome
+              uses: browser-actions/setup-chrome@v1
+
+            - name: Run wasm-pack tests
+              run: wasm-pack test --chrome --headless
+
+            - name: Run WebAssembly streaming interface tests
+              run: wasm-pack test --chrome --headless --test web

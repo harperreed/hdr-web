@@ -1,1 +1,18 @@
-/target
+# Dependencies
+node_modules
+target
+
+# Build outputs
+dist
+*.wasm
+*.js.map
+
+# Environment
+.env*
+!.env.example
+
+# IDE
+.vscode
+.idea
+*.swp
+output.txt

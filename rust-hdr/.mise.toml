@@ -1,0 +1,73 @@
+[tasks."wasm:build"]
+description = "Build WebAssembly targets in release mode"
+run = "wasm-pack build --target web --release"
+
+[tasks."wasm:test-node"]
+description = "Run tests in headless Node environment"
+run = "wasm-pack test --node"
+
+[tasks."wasm:test-chrome"]
+description = "Run tests in headless Chrome"
+run = "wasm-pack test --chrome --headless"
+
+[tasks."wasm:test-host"]
+depends = ["wasm:build"]
+description = "Run tests in headless Node environment"
+run = "npx serve ."
+
+[tasks."rust:build"]
+description = "Compile the project with optimizations in release mode"
+run = "cargo build --release"
+
+[tasks."rust:check"]
+description = "Check if the project compiles"
+run = "cargo check"
+
+[tasks."rust:test"]
+description = "Run all tests"
+run = "cargo test"
+
+[tasks."rust:test-coverage"]
+description = "Run tests with coverage report using cargo-tarpaulin"
+run = "cargo tarpaulin --ignore-tests"
+
+[tasks."rust:format"]
+description = "Format all code using rustfmt"
+run = "cargo fmt --all"
+
+[tasks."rust:lint"]
+description = "Run clippy lints"
+run = "cargo clippy -- -D warnings"
+
+[tasks."rust:doc"]
+description = "Generate documentation"
+run = "cargo doc --no-deps --document-private-items"
+
+[tasks."rust:clean"]
+description = "Clean build artifacts"
+run = "cargo clean"
+
+[tasks."rust:update"]
+description = "Update dependencies"
+run = "cargo update"
+
+
+[tasks."rust:watch"]
+description = "Watch for changes and run tests"
+run = """
+cargo watch \
+    -x check \
+    -x test \
+    -x 'clippy -- -D warnings'
+"""
+
+[tasks."rust:release"]
+description = "Build release version with all checks"
+depends = ["rust:clean", "rust:format", "rust:lint", "rust:test", "rust:build"]
+
+[tasks."rust:dev"]
+description = "Setup development environment"
+run = """
+cargo install cargo-watch cargo-audit cargo-tarpaulin wasm-pack
+rustup target add wasm32-unknown-unknown
+"""
