@@ -1,6 +1,22 @@
+import { useState } from "react";
 import Image from "next/image";
 
 export default function Home() {
+  const [brightness, setBrightness] = useState(1);
+  const [contrast, setContrast] = useState(1);
+  const [saturation, setSaturation] = useState(1);
+  const [exposure, setExposure] = useState(0);
+  const [whiteBalance, setWhiteBalance] = useState(0);
+  const [sharpness, setSharpness] = useState(0);
+  const [noiseReduction, setNoiseReduction] = useState(0);
+  const [highlightRecovery, setHighlightRecovery] = useState(0);
+  const [shadowRecovery, setShadowRecovery] = useState(0);
+  const [progress, setProgress] = useState(0);
+
+  const handleDownload = () => {
+    // Implement download logic
+  };
+
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
@@ -47,6 +63,117 @@ export default function Home() {
           >
             Read our docs
           </a>
+        </div>
+
+        <div className="flex flex-col gap-4">
+          <label>
+            Brightness
+            <input
+              type="range"
+              min="0"
+              max="2"
+              step="0.01"
+              value={brightness}
+              onChange={(e) => setBrightness(e.target.value)}
+            />
+          </label>
+          <label>
+            Contrast
+            <input
+              type="range"
+              min="0"
+              max="2"
+              step="0.01"
+              value={contrast}
+              onChange={(e) => setContrast(e.target.value)}
+            />
+          </label>
+          <label>
+            Saturation
+            <input
+              type="range"
+              min="0"
+              max="2"
+              step="0.01"
+              value={saturation}
+              onChange={(e) => setSaturation(e.target.value)}
+            />
+          </label>
+          <label>
+            Exposure
+            <input
+              type="range"
+              min="-2"
+              max="2"
+              step="0.01"
+              value={exposure}
+              onChange={(e) => setExposure(e.target.value)}
+            />
+          </label>
+          <label>
+            White Balance
+            <input
+              type="range"
+              min="-100"
+              max="100"
+              step="1"
+              value={whiteBalance}
+              onChange={(e) => setWhiteBalance(e.target.value)}
+            />
+          </label>
+          <label>
+            Sharpness
+            <input
+              type="range"
+              min="0"
+              max="2"
+              step="0.01"
+              value={sharpness}
+              onChange={(e) => setSharpness(e.target.value)}
+            />
+          </label>
+          <label>
+            Noise Reduction
+            <input
+              type="range"
+              min="0"
+              max="2"
+              step="0.01"
+              value={noiseReduction}
+              onChange={(e) => setNoiseReduction(e.target.value)}
+            />
+          </label>
+          <label>
+            Highlight Recovery
+            <input
+              type="range"
+              min="0"
+              max="2"
+              step="0.01"
+              value={highlightRecovery}
+              onChange={(e) => setHighlightRecovery(e.target.value)}
+            />
+          </label>
+          <label>
+            Shadow Recovery
+            <input
+              type="range"
+              min="0"
+              max="2"
+              step="0.01"
+              value={shadowRecovery}
+              onChange={(e) => setShadowRecovery(e.target.value)}
+            />
+          </label>
+        </div>
+
+        <button onClick={handleDownload}>Download HDR Image</button>
+
+        <div className="progress-bar">
+          <div
+            className="progress-bar-fill"
+            style={{ width: `${progress}%` }}
+          ></div>
         </div>
       </main>
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
